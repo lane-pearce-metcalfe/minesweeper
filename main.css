@@ -1,0 +1,16 @@
+#game-container {
+  display: grid;
+  grid-template-columns: repeat(5, 30px);
+  grid-gap: 2px;
+}
+
+.cell {
+  background-color: gray;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.cell:hover {
+  background-color: lightgrey;
+}
