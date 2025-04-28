@@ -21,15 +21,21 @@ export function createBoard() {
   addCellClicks();
 }
 
+let minesPlaced;
+
 function addMines() {
   const amountOfMines = (boardSize * boardSize) * difficulty;
+
+  minesPlaced = 0;
 
   for (let i = 0; i < amountOfMines; i++) {
     const randRow = Math.floor(Math.random() * boardSize)
     let randCell = Math.floor(Math.random() * boardSize)
+    if (!grid[randRow][randCell.isMine]) {
+      minesPlaced++;
+    }
     grid[randRow][randCell].isMine = true;
   }
-  console.log(grid)
 }
 
 const directions = [
@@ -96,7 +102,7 @@ function addCellClicks() {
 
     e.addEventListener('contextmenu', (event) => {
       event.preventDefault();
-      if (e.classList.contains('flagged') || e.classList.contains('selected ')) {
+      if (e.classList.contains('flagged') || e.classList.contains('selected')) {
         e.classList.remove('flagged')
       } else {
         e.classList.add('flagged')
