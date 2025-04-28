@@ -1,8 +1,12 @@
-let boardSize = 10;
+
+import { boardSize, addBoardSizeClicks } from "./boardSizeBtns.js";
+
+addBoardSizeClicks();
+
 let difficulty = 0.2;
 const grid = [];
 
-function createBoard() {
+export function createBoard() {
   let HTML = ``
   for(let row = 0; row < boardSize; row++) {
     grid[row] = [];
@@ -13,9 +17,9 @@ function createBoard() {
     }
   }
   document.getElementById('game-container').innerHTML = HTML
+  addMines();
+  addCellClicks();
 }
-
-createBoard();
 
 function addMines() {
   const amountOfMines = (boardSize * boardSize) * difficulty;
@@ -27,8 +31,6 @@ function addMines() {
 
   }
 }
-
-addMines();
 
 const directions = [
   [-1, -1], [-1, 0], [-1, 1],
@@ -55,21 +57,24 @@ function countMines(row, cell) {
   return mineCount;
 }
 
-document.querySelectorAll('.cell').forEach((e) => {
-  e.addEventListener('click', (event) => {
-    const [row, cell] = event.target.id.split('-').map(Number);
-    if (!grid[row][cell].isMine) {
-    const mineCount = countMines(row, cell);
-    revealCell(mineCount, row, cell);
-    if (mineCount > 0) {
-      event.target.textContent = mineCount;
-    }
-    event.target.classList.add('selected');
-    } else {
-      document.getElementById(`${row}-${cell}`).classList.add('mine');
-    }
+function addCellClicks() {
+  document.querySelectorAll('.cell').forEach((e) => {
+    e.addEventListener('click', (event) => {
+      const [row, cell] = event.target.id.split('-').map(Number);
+      if (!grid[row][cell].isMine) {
+      const mineCount = countMines(row, cell);
+      revealCell(mineCount, row, cell);
+      if (mineCount > 0) {
+        event.target.textContent = mineCount;
+      }
+      event.target.classList.add('selected');
+      } else {
+        document.getElementById(`${row}-${cell}`).classList.add('mine');
+      }
+    });
   });
-});
+}
+
 
 function revealCell(mineCount, row, cell, visited = new Set()) {
   const id = `${row}-${cell}`;
@@ -97,3 +102,5 @@ function revealCell(mineCount, row, cell, visited = new Set()) {
     }
   }
 }
+
+createBoard();
