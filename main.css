@@ -1,7 +1,22 @@
 #game-container {
   display: grid;
-  grid-template-columns: repeat(10, 30px);
   grid-gap: 2px;
+}
+
+.small-grid {
+  grid-template-columns: repeat(5, 30px);
+}
+
+.medium-grid {
+  grid-template-columns: repeat(10, 30px);
+}
+
+.large-grid {
+  grid-template-columns: repeat(15, 30px);
+}
+
+.huge-grid {
+  grid-template-columns: repeat(20, 30px);
 }
 
 .cell {
