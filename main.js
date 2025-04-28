@@ -64,6 +64,7 @@ document.querySelectorAll('.cell').forEach((e) => {
     if (mineCount > 0) {
       event.target.textContent = mineCount;
     }
+    event.target.classList.add('selected');
     } else {
       document.getElementById(`${row}-${cell}`).classList.add('mine');
     }
@@ -83,6 +84,7 @@ function revealCell(mineCount, row, cell, visited = new Set()) {
     element.textContent !== ''
   ) return;
 
+  element.classList.add('selected')
   element.textContent = mineCount;
 
   if (mineCount === 0) {
