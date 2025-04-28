@@ -36,8 +36,26 @@
 
 .selected {
   background-color: transparent;
+  cursor: default;
+}
+
+.selected:hover {
+  background-color: transparent;
 }
 
 .mine {
   background-color: red;
+  cursor: default;
+}
+
+.mine:hover {
+  background-color: red;
+}
+
+.flagged {
+  background-color: blue;
+}
+
+.flagged:hover {
+  background-color: lightblue;
 }

@@ -60,18 +60,30 @@ function countMines(row, cell) {
 function addCellClicks() {
   document.querySelectorAll('.cell').forEach((e) => {
     e.addEventListener('click', (event) => {
-      const [row, cell] = event.target.id.split('-').map(Number);
-      if (!grid[row][cell].isMine) {
-      const mineCount = countMines(row, cell);
-      revealCell(mineCount, row, cell);
-      if (mineCount > 0) {
-        event.target.textContent = mineCount;
-      }
-      event.target.classList.add('selected');
-      } else {
-        document.getElementById(`${row}-${cell}`).classList.add('mine');
+      if (!e.classList.contains('flagged')) {
+        const [row, cell] = event.target.id.split('-').map(Number);
+        if (!grid[row][cell].isMine) {
+        const mineCount = countMines(row, cell);
+        revealCell(mineCount, row, cell);
+        if (mineCount > 0) {
+          event.target.textContent = mineCount;
+        }
+        event.target.classList.add('selected');
+        } else {
+          document.getElementById(`${row}-${cell}`).classList.add('mine');
+        }
       }
     });
+
+
+    e.addEventListener('contextmenu', (event) => {
+      event.preventDefault();
+      if (e.classList.contains('flagged')) {
+        e.classList.remove('flagged')
+      } else {
+        e.classList.add('flagged')
+      }
+    })
   });
 }
 
