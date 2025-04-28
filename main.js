@@ -24,7 +24,7 @@ function addMines() {
     const randRow = Math.floor(Math.random() * boardSize)
     let randCell = Math.floor(Math.random() * boardSize)
     grid[randRow][randCell].isMine = true;
-    document.getElementById(`${randRow}-${randCell}`).classList.add('mine');
+
   }
 }
 
@@ -63,21 +63,18 @@ document.querySelectorAll('.cell').forEach((e) => {
     revealCell(mineCount, row, cell);
     event.target.textContent = mineCount;
     } else {
-      console.log('You lose!')
+      document.getElementById(`${row}-${cell}`).classList.add('mine');
     }
   });
 });
 
 function revealCell(mineCount, row, cell, visited = new Set()) {
   const id = `${row}-${cell}`;
-
-  // Avoid re-processing already visited cells
   if (visited.has(id)) return;
   visited.add(id);
 
   const element = document.getElementById(id);
 
-  // Check bounds
   if (
     row < 0 || row >= boardSize ||
     cell < 0 || cell >= boardSize ||

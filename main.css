@@ -1,6 +1,6 @@
 #game-container {
   display: grid;
-  grid-template-columns: repeat(5, 30px);
+  grid-template-columns: repeat(20, 30px);
   grid-gap: 2px;
 }
 
@@ -13,4 +13,8 @@
 
 .cell:hover {
   background-color: lightgrey;
+}
+
+.mine {
+  background-color: red;
 }
