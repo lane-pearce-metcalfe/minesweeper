@@ -1,4 +1,4 @@
-let boardSize = 5;
+let boardSize = 20;
 let difficulty = 0.2;
 const grid = [];
 
@@ -58,15 +58,40 @@ function countMines(row, cell) {
 document.querySelectorAll('.cell').forEach((e) => {
   e.addEventListener('click', (event) => {
     const [row, cell] = event.target.id.split('-').map(Number);
+    if (!grid[row][cell].isMine) {
     const mineCount = countMines(row, cell);
-    if (mineCount === 0) {
-      for (let i = 0; i < 8; i++) {
-        const newRow = row + directions[i][0];
-        const newCell = cell + directions[i][1]; 
-        const newMines = countMines(newRow, newCell);
-        document.getElementById(`${newRow}-${newCell}`).textContent = newMines;
-      }
-    }
+    revealCell(mineCount, row, cell);
     event.target.textContent = mineCount;
+    } else {
+      console.log('You lose!')
+    }
   });
 });
+
+function revealCell(mineCount, row, cell, visited = new Set()) {
+  const id = `${row}-${cell}`;
+
+  // Avoid re-processing already visited cells
+  if (visited.has(id)) return;
+  visited.add(id);
+
+  const element = document.getElementById(id);
+
+  // Check bounds
+  if (
+    row < 0 || row >= boardSize ||
+    cell < 0 || cell >= boardSize ||
+    element.textContent !== ''
+  ) return;
+
+  element.textContent = mineCount;
+
+  if (mineCount === 0) {
+    for (let [dx, dy] of directions) {
+      const newRow = row + dx;
+      const newCell = cell + dy;
+
+      revealCell(countMines(newRow, newCell), newRow, newCell, visited);
+    }
+  }
+}
