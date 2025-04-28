@@ -51,7 +51,7 @@ const directions = [
 
 let firstClick = true;
 
-const colors = ['blue', 'green', 'orange', 'darkblue', 'darkred', 'cyan', 'purple', 'white']
+const colors = ['transparent', 'blue', 'green', 'orange', 'darkblue', 'darkred', 'cyan', 'purple', 'white']
 
 function countMines(row, cell) {
   let mineCount = 0;
@@ -76,8 +76,8 @@ function countMines(row, cell) {
   }
 
   const selectCell = document.getElementById(`${row}-${cell}`)
-  if (mineCount > 0 && selectCell) {
-    selectCell.style.color = colors[mineCount - 1]
+  if (selectCell) {
+    selectCell.style.color = colors[mineCount]
   }
   
   return mineCount;
@@ -98,9 +98,7 @@ function addCellClicks() {
           }
         }
         revealCell(mineCount, row, cell);
-        if (mineCount > 0) {
-          event.target.textContent = mineCount;
-        }
+        event.target.textContent = mineCount;
         event.target.classList.add('selected');
         } else {
           document.getElementById(`${row}-${cell}`).classList.add('mine');
@@ -122,10 +120,9 @@ function addCellClicks() {
           e.classList.add('flagged')
           if (grid[row][cell].isMine === true) {
             minesFlagged++;
-            console.log(minesFlagged)
-            console.log(minesPlaced)
             if (minesFlagged === minesPlaced) {
               console.log('You won!')
+              winGame();
             }
           }
         }
@@ -134,6 +131,18 @@ function addCellClicks() {
   });
 }
 
+function winGame() {
+  document.querySelectorAll('.cell').forEach((e) => {
+    if (e.innerHTML === ``) {
+      const [row, cell] = e.id.split('-').map(Number);
+      const mineCount = countMines(row, cell);
+      if (!grid[row][cell].isMine) {
+        e.textContent = mineCount;
+        e.classList.add('selected')
+      }
+    }
+  })
+}
 
 function revealCell(mineCount, row, cell, visited = new Set()) {
   const id = `${row}-${cell}`;
