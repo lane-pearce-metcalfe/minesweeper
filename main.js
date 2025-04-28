@@ -40,6 +40,8 @@ const directions = [
 
 let firstClick = true;
 
+const colors = ['blue', 'green', 'orange', 'darkblue', 'darkred', 'cyan', 'purple', 'white']
+
 function countMines(row, cell) {
   let mineCount = 0;
 
@@ -60,6 +62,12 @@ function countMines(row, cell) {
       }
     }
   }
+
+  const selectCell = document.getElementById(`${row}-${cell}`)
+  if (mineCount > 0 && selectCell) {
+    selectCell.style.color = colors[mineCount - 1]
+  }
+  
   return mineCount;
 }
 
@@ -88,7 +96,7 @@ function addCellClicks() {
 
     e.addEventListener('contextmenu', (event) => {
       event.preventDefault();
-      if (e.classList.contains('flagged')) {
+      if (e.classList.contains('flagged') || e.classList.contains('selected ')) {
         e.classList.remove('flagged')
       } else {
         e.classList.add('flagged')
