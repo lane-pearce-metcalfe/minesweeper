@@ -28,8 +28,8 @@ function addMines() {
     const randRow = Math.floor(Math.random() * boardSize)
     let randCell = Math.floor(Math.random() * boardSize)
     grid[randRow][randCell].isMine = true;
-
   }
+  console.log(grid)
 }
 
 const directions = [
@@ -37,6 +37,8 @@ const directions = [
   [0, -1], [0, 1],
   [1, -1], [1, 0], [1, 1]
 ]
+
+let firstClick = true;
 
 function countMines(row, cell) {
   let mineCount = 0;
@@ -51,7 +53,11 @@ function countMines(row, cell) {
       newCell < boardSize &&
       grid[newRow][newCell].isMine
     ) {
-      mineCount++
+      if (firstClick === true) {
+        grid[newRow][newCell].isMine = false
+      } else {
+        mineCount++
+      }
     }
   }
   return mineCount;
@@ -62,8 +68,12 @@ function addCellClicks() {
     e.addEventListener('click', (event) => {
       if (!e.classList.contains('flagged')) {
         const [row, cell] = event.target.id.split('-').map(Number);
-        if (!grid[row][cell].isMine) {
+        if (!grid[row][cell].isMine || grid[row][cell].isMine && firstClick) {
         const mineCount = countMines(row, cell);
+        if (firstClick === true) {
+          firstClick = false;
+          grid[row][cell].isMine = false;
+        }
         revealCell(mineCount, row, cell);
         if (mineCount > 0) {
           event.target.textContent = mineCount;
