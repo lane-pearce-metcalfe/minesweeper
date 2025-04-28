@@ -61,7 +61,9 @@ document.querySelectorAll('.cell').forEach((e) => {
     if (!grid[row][cell].isMine) {
     const mineCount = countMines(row, cell);
     revealCell(mineCount, row, cell);
-    event.target.textContent = mineCount;
+    if (mineCount > 0) {
+      event.target.textContent = mineCount;
+    }
     } else {
       document.getElementById(`${row}-${cell}`).classList.add('mine');
     }
@@ -84,6 +86,7 @@ function revealCell(mineCount, row, cell, visited = new Set()) {
   element.textContent = mineCount;
 
   if (mineCount === 0) {
+    element.textContent = ``;
     for (let [dx, dy] of directions) {
       const newRow = row + dx;
       const newCell = cell + dy;
