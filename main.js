@@ -1,4 +1,4 @@
-let boardSize = 20;
+let boardSize = 10;
 let difficulty = 0.2;
 const grid = [];
 
