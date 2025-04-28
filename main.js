@@ -5,8 +5,11 @@ addBoardSizeClicks();
 
 let difficulty = 0.2;
 const grid = [];
+let minesFlagged = 0;
+
 
 export function createBoard() {
+  minesFlagged = 0;
   let HTML = ``
   for(let row = 0; row < boardSize; row++) {
     grid[row] = [];
@@ -19,6 +22,7 @@ export function createBoard() {
   document.getElementById('game-container').innerHTML = HTML
   addMines();
   addCellClicks();
+  console.log(grid)
 }
 
 let minesPlaced;
@@ -31,11 +35,12 @@ function addMines() {
   for (let i = 0; i < amountOfMines; i++) {
     const randRow = Math.floor(Math.random() * boardSize)
     let randCell = Math.floor(Math.random() * boardSize)
-    if (!grid[randRow][randCell.isMine]) {
+    if (!grid[randRow][randCell].isMine) {
       minesPlaced++;
     }
     grid[randRow][randCell].isMine = true;
   }
+  console.log(minesPlaced)
 }
 
 const directions = [
@@ -63,6 +68,7 @@ function countMines(row, cell) {
     ) {
       if (firstClick === true) {
         grid[newRow][newCell].isMine = false
+        minesPlaced--;
       } else {
         mineCount++
       }
@@ -86,7 +92,10 @@ function addCellClicks() {
         const mineCount = countMines(row, cell);
         if (firstClick === true) {
           firstClick = false;
-          grid[row][cell].isMine = false;
+          if(grid[row][cell].isMine === true) {
+            grid[row][cell].isMine = false;
+            minesPlaced--;
+          }
         }
         revealCell(mineCount, row, cell);
         if (mineCount > 0) {
@@ -102,10 +111,24 @@ function addCellClicks() {
 
     e.addEventListener('contextmenu', (event) => {
       event.preventDefault();
-      if (e.classList.contains('flagged') || e.classList.contains('selected')) {
-        e.classList.remove('flagged')
-      } else {
-        e.classList.add('flagged')
+      const [row, cell] = event.target.id.split('-').map(Number);
+      if (!e.classList.contains('selected')) {
+        if (e.classList.contains('flagged')) {
+          e.classList.remove('flagged')
+          if (grid[row][cell].isMine === true) {
+            minesFlagged--;
+          }
+        } else {
+          e.classList.add('flagged')
+          if (grid[row][cell].isMine === true) {
+            minesFlagged++;
+            console.log(minesFlagged)
+            console.log(minesPlaced)
+            if (minesFlagged === minesPlaced) {
+              console.log('You won!')
+            }
+          }
+        }
       }
     })
   });
