@@ -9,6 +9,7 @@ let minesFlagged = 0;
 
 
 export function createBoard() {
+  firstClick = true;
   minesFlagged = 0;
   let HTML = ``
   for(let row = 0; row < boardSize; row++) {
@@ -40,7 +41,6 @@ function addMines() {
     }
     grid[randRow][randCell].isMine = true;
   }
-  console.log(minesPlaced)
 }
 
 const directions = [
@@ -121,7 +121,6 @@ function addCellClicks() {
           if (grid[row][cell].isMine === true) {
             minesFlagged++;
             if (minesFlagged === minesPlaced) {
-              console.log('You won!')
               winGame();
             }
           }
