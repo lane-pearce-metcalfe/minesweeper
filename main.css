@@ -75,6 +75,7 @@ button {
   font-weight: bold;
   color: white;
   background-color: darkgrey;
+  padding: 5px 15px;
 }
 
 .selected:hover {
