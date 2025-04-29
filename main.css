@@ -37,6 +37,7 @@ body button {
   border-left: 2px solid lightgrey;
   border-bottom: 2px solid rgb(36, 36, 36);
   border-right: 2px solid rgb(36, 36, 36);
+  margin-bottom: -2px;
 }
 
 .cell:hover {
