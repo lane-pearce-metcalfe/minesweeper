@@ -8,19 +8,19 @@ body {
 }
 
 .small-grid {
-  grid-template-columns: repeat(5, 30px);
+  grid-template-columns: repeat(5, 32px);
 }
 
 .medium-grid {
-  grid-template-columns: repeat(10, 30px);
+  grid-template-columns: repeat(10, 32px);
 }
 
 .large-grid {
-  grid-template-columns: repeat(15, 30px);
+  grid-template-columns: repeat(15, 32px);
 }
 
 .huge-grid {
-  grid-template-columns: repeat(20, 30px);
+  grid-template-columns: repeat(20, 32px);
 }
 
 .cell {
