@@ -119,7 +119,7 @@ function addCellClicks() {
           }
         } else {
           e.classList.add('flagged')
-          e.innerHTML = `<img src="flag.png" class="flag">`
+          e.innerHTML = `<img src="flag.png" class="flag" draggable="false">`
           if (grid[row][cell].isMine === true) {
             minesFlagged++;
             if (minesFlagged === minesPlaced) {
