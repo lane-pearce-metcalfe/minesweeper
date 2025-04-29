@@ -78,11 +78,3 @@ h1 {
 .mine:hover {
   background-color: red;
 }
-
-.flagged {
-  background-color: blue;
-}
-
-.flagged:hover {
-  background-color: lightblue;
-}
