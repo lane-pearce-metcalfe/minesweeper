@@ -63,7 +63,10 @@ h1 {
   border-bottom-color: transparent;
   border-top-color: rgb(36, 36, 36);
   border-left-color: rgb(36, 36, 36);
+}
 
+.button-div {
+  margin-bottom: 20px;
 }
 
 .selected:hover {
