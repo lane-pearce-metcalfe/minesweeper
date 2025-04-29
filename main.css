@@ -74,6 +74,7 @@ button {
   font-size: 18px;
   font-weight: bold;
   color: white;
+  background-color: darkgrey;
 }
 
 .selected:hover {
