@@ -69,6 +69,10 @@ h1 {
   margin-bottom: 20px;
 }
 
+button {
+  border: none;
+}
+
 .selected:hover {
   background-color: transparent;
 }
