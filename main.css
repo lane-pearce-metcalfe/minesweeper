@@ -1,10 +1,11 @@
+
+body button {
+  font-family: 'Open Sans', sans-serif;
+}
+
 #game-container {
   display: grid;
   grid-gap: 2px;
-}
-
-body {
-  background-color: rgb(44, 44, 44);
 }
 
 .small-grid {
