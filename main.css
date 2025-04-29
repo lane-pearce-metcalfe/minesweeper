@@ -74,9 +74,10 @@ button {
   font-size: 18px;
   font-weight: bold;
   color: white;
-  background-color: darkgrey;
+  background-color: rgb(90, 90, 90);
   padding: 5px 15px;
   border-radius: 10px;
+  cursor: pointer;
 }
 
 .selected:hover {
